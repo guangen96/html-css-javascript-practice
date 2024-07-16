@@ -38,21 +38,14 @@ p {
 
 /* Navigation - Header / Footer */
 header {
-  width: 100%;
-  height: 4rem;
-  background-color: blue;
-  z-index: 2;
-}
-
-.header.container {
   display: flex;
   position: relative;
   align-items: center;
   justify-content: space-between;
-  width: 80%;
-  padding: 0.5rem 3rem;
+  width: 100%;
+  padding: 0.5rem 4rem;
   height: 4rem;
-  background-color: black;
+  background-color: var(--main-black-color);
   z-index: 2;
 }
 
@@ -198,12 +191,14 @@ header {
   flex-direction: column;
   justify-content: left;
   align-items: start;
-  right: 4.4rem;
+  right: 4rem;
   top: 4rem;
   height: 25rem;
   width: 20rem;
   z-index: 2;
   background-color: white;
+  border: 1px solid grey;
+  border-radius: 10px;
 }
 
 .dropdown-content-section {
@@ -241,7 +236,7 @@ hr.solid {
 .dropdown-content-signin::before {
   content: "";
   position: absolute;
-  right: 15px;
+  right: 40px;
   top: -10px;
   width: 0;
   height: 0;
@@ -263,14 +258,14 @@ hr.solid {
   background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
 }
 
-.main-nav a:hover {
+.main-nav > a:hover {
   background-color: rgba(255, 255, 255, 0.3);
   padding: 0.7rem 1rem;
   border-radius: 10px;
   cursor: pointer;
 }
 
-.secondary-nav a:hover {
+.secondary-nav > a:hover {
   background-color: rgba(255, 255, 255, 0.3);
   padding: 0.7rem 1rem;
   border-radius: 10px;
@@ -287,6 +282,66 @@ hr.solid {
 
 .active > .bx-chevron-down {
   transform: rotate(180deg);
+}
+
+/* Main content */
+.search-bar-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  height: 5rem;
+  width: calc(100% - 8rem);
+  background: rgb(245, 245, 245);
+  border-radius: 10px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  width: 85%;
+  height: 3.5rem;
+  background: white;
+  margin: 0.2rem 0.6rem;
+  -webkit-box-shadow: 0 0 5px grey;
+  box-shadow: 0 0 5px grey;
+  border-radius: 5px;
+}
+
+.search-bar input[type="text"] {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+}
+
+.search-area {
+  display: flex;
+  align-items: center;
+  margin: auto 1rem;
+  width: 100%;
+}
+
+.search-area i {
+  margin-right: 0.5rem;
+}
+
+input[type="text"] {
+  width: 100%;
+}
+
+input[type="text"]:focus {
+  outline: none;
+}
+
+.search-area input[type="text"]:focus :has(i) {
+  display: none;
+}
+
+input[type="text"]::placeholder {
+  color: grey;
 }
 
 /* Utilities - buttons, search bar and accordions */
@@ -307,7 +362,7 @@ button.active {
   color: black;
 }
 
-button:hover {
+button:hover:not(.active) {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -321,4 +376,15 @@ button:hover {
 
 .bx-chevron-down {
   color: grey;
+}
+
+.search-bar button[type="submit"] {
+  display: block;
+  background: var(--main-blue-color-1);
+  margin: 0 1rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  width: 12rem;
+  height: 2.8rem;
 }
