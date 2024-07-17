@@ -26,16 +26,14 @@ for (i = 0; i < dropdown.length; i++) {
       return;
     }
     // Open dropdown if click button
-    // Check if dropdown already open
-    var current = document.getElementsByClassName("active");
-    // If dropdown already open, remove existing content
+    // If other dropdown already open, remove existing content
     if (current.length) {
       var target = current[0].querySelectorAll(".bx-chevron-down")[0];
       target.classList.add("inactive");
       current[0].classList.remove("active");
       this.classList.remove("animation");
     }
-    // If dropdown not open, add animation
+    // If other dropdown not open, add animation
     else this.classList.add("animation");
     this.classList.add("active");
     // Add overlay, grey if main nav, white if signin
