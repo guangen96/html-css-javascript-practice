@@ -114,12 +114,41 @@ header {
   background-color: white;
 }
 
+.animation + .dropdown-content {
+  animation: dropdown-ani 0.3s ease-out 0s 1 forwards;
+}
+
+@keyframes dropdown-ani {
+  0% {
+    height: 5rem;
+  }
+  100% {
+    height: 25rem;
+  }
+}
+
 .dropdown-content-nav {
   grid-column: 1 / 5;
   display: flex;
   flex-direction: row;
   align-items: start;
   margin: 2rem 2.8rem;
+  animation: dropdown-content-ani 0.5s linear 0s 1 forwards;
+}
+
+@keyframes dropdown-content-ani {
+  0% {
+    padding-left: 1rem;
+    opacity: 0;
+  }
+  20% {
+    padding-left: 1rem;
+    opacity: 0;
+  }
+  100% {
+    padding-left: 0rem;
+    opacity: 1;
+  }
 }
 
 .dropdown-content-nav-col {
@@ -173,10 +202,28 @@ header {
 
 .dropdown-content-image {
   grid-column: 5 / 6;
+  width: 21rem;
   margin: 2rem;
+  animation: dropdown-content-image-ani 0.5s linear 0s 1 forwards;
+}
+
+@keyframes dropdown-content-image-ani {
+  0% {
+    padding-left: 1rem;
+    opacity: 0;
+  }
+  20% {
+    padding-left: 1rem;
+    opacity: 0;
+  }
+  100% {
+    padding-left: 0rem;
+    opacity: 1;
+  }
 }
 
 .dropdown-content-image img {
+  float: left;
   width: 20rem;
 }
 
@@ -281,7 +328,24 @@ hr.solid {
 }
 
 .active > .bx-chevron-down {
-  transform: rotate(180deg);
+  animation: chevron-ani 0.2s linear 0s 1 both;
+}
+
+@keyframes chevron-ani {
+  0% {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
+  1% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(180deg);
+  }
 }
 
 /* Main content */
@@ -320,24 +384,35 @@ hr.solid {
 .search-area {
   display: flex;
   align-items: center;
-  margin: auto 1rem;
+  margin: auto 0;
   width: 100%;
 }
 
 .search-area i {
   margin-right: 0.5rem;
+  margin-left: 1rem;
+}
+
+.search-bar:focus-within {
+  border: 2px solid var(--main-blue-color-1);
 }
 
 input[type="text"] {
   width: 100%;
+  order: 2;
 }
 
 input[type="text"]:focus {
   outline: none;
 }
 
-.search-area input[type="text"]:focus :has(i) {
-  display: none;
+input[type="text"] + i {
+  transition: all 0.3s linear;
+}
+
+input[type="text"]:focus + i {
+  margin: 0;
+  opacity: 0;
 }
 
 input[type="text"]::placeholder {
@@ -376,6 +451,26 @@ button:hover:not(.active) {
 
 .bx-chevron-down {
   color: grey;
+}
+
+.inactive {
+  animation: chevron-ani-opposite 0.2s linear 0s 1 both;
+}
+
+@keyframes chevron-ani-opposite {
+  0% {
+    opacity: 1;
+  }
+  1% {
+    opacity: 0;
+  }
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(360deg);
+  }
 }
 
 .search-bar button[type="submit"] {
