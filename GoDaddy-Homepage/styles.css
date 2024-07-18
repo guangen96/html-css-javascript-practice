@@ -354,7 +354,7 @@ hr.solid {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 2rem auto;
+  margin: 1rem auto;
   height: 5rem;
   width: calc(100% - 8rem);
   background: rgb(245, 245, 245);
@@ -419,6 +419,344 @@ input[type="text"]::placeholder {
   color: grey;
 }
 
+.search-bar-right {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.search-bar-right p {
+  font-size: 0.8rem;
+  margin: 0.5rem;
+}
+
+.search-bar-right div p {
+  font-size: 0.8rem;
+  margin-right: 1rem;
+  line-height: 0.5rem;
+}
+
+.search-bar-right div p:first-child {
+  font-weight: 600;
+}
+
+/* Main Content - Section 1 */
+.content-one {
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: left;
+  margin: 0 auto;
+  width: calc(100% - 8rem);
+  height: 0;
+  padding-top: 33%;
+  position: relative;
+}
+
+.content-one-left {
+  height: 0;
+  width: 75%;
+  height: 100%;
+  padding-top: 33%;
+  background-image: url("https://img1.wsimg.com/cdnassets/transform/9fe7d867-9c96-44f4-9c62-48e594446440/row-mrq-hp-landscape");
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 20px;
+}
+
+.content-one-left-container {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+}
+
+.content-one-left span {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.content-one-left p:first-of-type {
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: black;
+  margin: 1rem 0;
+}
+
+.links {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: black;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.links a span {
+  padding-right: 0.5rem;
+}
+
+.links a:hover > span {
+  text-decoration: underline;
+  padding-right: 0.8rem;
+}
+
+.links a i {
+  font-size: 1.2rem;
+}
+
+.content-one-left p {
+  font-size: 0.6rem;
+  margin: 1rem 0;
+  font-weight: 600;
+}
+
+.content-one-right {
+  background-color: black;
+  width: calc(25% - 1rem);
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.content-one-right span {
+  background-color: aqua;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem;
+  border-radius: 3px;
+}
+
+.content-one-right p:first-of-type {
+  font-size: 0.8rem;
+  color: white;
+  margin: 1rem;
+}
+
+.content-one-right p {
+  color: white;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+/* Main Content - Section 2 */
+.content-two {
+  width: 70%;
+  min-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content-two-header {
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rem;
+}
+
+.content-two-header h2 {
+  padding: 1.5rem 0;
+  font-size: 2rem;
+}
+
+.content-two-buttons {
+  display: flex;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.content-two-buttons button {
+  margin: 0 0.5rem;
+}
+
+.content-two-grid {
+  display: none;
+}
+
+.content-two-grid.active {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  width: 100%;
+  height: 35rem;
+  margin-top: 1rem;
+  gap: 2rem;
+  animation: content-two-ani 0.1s linear 0s 1 forwards;
+}
+
+@keyframes content-two-ani {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.content-two-grid-left {
+  grid-column: 1 / 2;
+  grid-row: span 2;
+  background-image: url(https://img1.wsimg.com/cdnassets/transform/ec1ec404-8337-4417-9c0a-a4bf5eeace3a/intl-img-hp-recore-domains-large-landscape);
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  justify-content: left;
+  align-items: end;
+  padding: 2rem;
+}
+
+.content-two > div:nth-of-type(3) > .content-two-grid-left {
+  background-image: url(https://img1.wsimg.com/cdnassets/transform/a4e79af9-5ba7-4aa6-b238-e59243b9f701/intl-img-hp-recore-prof-email-large-landscape);
+  background-size: cover;
+}
+
+.content-two-grid-right {
+  grid-column: 2 / 3;
+  display: grid;
+  grid-row: 1 / 3;
+  gap: 2rem;
+}
+
+.content-two-grid-right .content-two-grid-section {
+  background-image: url(https://img1.wsimg.com/cdnassets/transform/fa9063d0-1ec3-4ab1-83e8-dbf6d03f9d3c/img-hp-recore-co-small);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: end;
+  padding: 2rem;
+  border-radius: 20px;
+}
+
+.content-two-grid-left .content-two-grid-section-text {
+  width: 70%;
+}
+.content-two-grid-right .content-two-grid-section-text {
+  width: 50%;
+}
+
+.content-two-grid div div h3 {
+  font-size: 1.2rem;
+}
+
+.content-two-grid div div p {
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin: 0.5rem 0 1rem 0;
+}
+
+.content-two
+  > div:last-child
+  > .content-two-grid-right
+  .content-two-grid-section {
+  background-image: url(https://img1.wsimg.com/cdnassets/transform/ec1ec404-8337-4417-9c0a-a4bf5eeace3a/intl-img-hp-recore-domains-large-landscape);
+  background-size: cover;
+}
+
+.content-two
+  > div:last-child
+  > .content-two-grid-right
+  .content-two-grid-section
+  .content-two-grid-section-text {
+  width: 70%;
+}
+
+.content-two-grid-right .content-two-grid-section:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.content-two-grid-left:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Main content - content three */
+.content-three {
+  width: 80%;
+  min-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10rem;
+  margin: 0 auto;
+}
+
+.content-three h2 {
+  margin: 2rem;
+  font-size: 2.5rem;
+}
+
+.content-three-display img {
+  display: none;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.content-three-display-select {
+  display: flex;
+  align-items: start;
+  width: 100%;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.content-three-display-card {
+  height: 11rem;
+  width: calc(100% / 3);
+  padding: 1rem 2rem 1rem 1rem;
+  border-radius: 20px;
+}
+
+.content-three-display > .active {
+  display: block;
+}
+
+.content-three-display-card.active {
+  background-color: rgba(0, 0, 0, 0.1);
+  animation: content-three-ani 0.1s linear 0s 1 forwards;
+}
+
+@keyframes content-three-ani {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.content-three-display-card h3 {
+  font-size: 1.2rem;
+}
+.content-three-display-card p {
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
 /* Utilities - buttons, search bar and accordions */
 button {
   font-size: 1.2rem;
@@ -432,12 +770,58 @@ button {
   align-items: center;
 }
 
+button:hover {
+  -webkit-transform: scale(1.02, 1.02);
+}
+
+.content-one button {
+  font-size: 1rem;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12rem;
+  height: 3rem;
+}
+
+.content-one-right button {
+  font-size: 1rem;
+  font-weight: 600;
+  width: 14rem;
+}
+
+.content-one-left .links button i {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+}
+
+.content-one button > i {
+  transition: opacity 0.5s linear 0s, width 0.2s linear 0s;
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+}
+
+.content-one button:hover > i {
+  opacity: 1;
+  width: 1.5rem;
+}
+
+.round-small {
+  border-radius: 5px;
+}
+
+.white-bg {
+  color: var(--main-black-color);
+  background: white;
+}
+
 button.active {
   background: white;
   color: black;
 }
 
-button:hover:not(.active) {
+.dropdown:hover:not(.active) {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -477,9 +861,33 @@ button:hover:not(.active) {
   display: block;
   background: var(--main-blue-color-1);
   margin: 0 1rem;
-  border-radius: 5px;
   font-size: 0.8rem;
   font-weight: 500;
   width: 12rem;
   height: 2.8rem;
+}
+
+.search-bar button[type="submit"]:hover {
+  background: var(--main-blue-color-2);
+}
+
+.content-two-buttons button {
+  border: 1px solid grey;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+}
+
+.content-two-buttons button:hover:not(.active) {
+  outline: 2px solid black;
+}
+
+.content-two-select.active {
+  color: white;
+  background-color: var(--main-black-color);
+}
+
+.content-two-grid div div button {
+  font-size: 0.8rem;
 }
