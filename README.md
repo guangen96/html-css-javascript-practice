@@ -11,4 +11,9 @@ Project resource: https://www.frontendpractice.com/projects/go-daddy <br />
 Actual: https://www.godaddy.com/en-sg <br />
 Recreated (partial): https://godaddy-homepage-partial.netlify.app/ <br />
 
+Pokemon-Display-Practice (simple design website to practice calling apis) <br />
+API documentation: https://pokeapi.co/docs/v2#info <br />
+Website: https://pokemon-display-practice.netlify.app/ <br />
+Quick instructions: Select pokedex (use "all" if unfamiliar) then input search term to find and display pokemon information <br />
+
 
