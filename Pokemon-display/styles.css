@@ -1,0 +1,77 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Verdana", "Arial", sans-serif;
+  line-height: 1.3;
+  color: #373737;
+  height: 100vh;
+  width: 100%;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
+  margin: 0 auto;
+}
+
+.search-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#pokedex-select {
+  background-color: dodgerblue;
+  border: 1px solid dodgerblue;
+  color: white;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 20px 0px 0px 20px;
+}
+
+.search-dropdown option {
+  background: white;
+  color: dodgerblue;
+}
+
+.search-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+}
+
+#search-input {
+  padding: 0.5rem;
+  border: 1px solid grey;
+  width: 100%;
+}
+
+#search-input:focus {
+  outline: none;
+  border: 1px solid dodgerblue;
+  box-shadow: inset 0 0 0 2px dodgerblue;
+}
+
+#search-input::placeholder {
+  color: dodgerblue;
+}
+
+.search-area button {
+  padding: 0.5rem;
+  background: dodgerblue;
+  border: 1px solid dodgerblue;
+  border-radius: 0px 20px 20px 0px;
+}
+
+.search-area button .bx-search-alt-2 {
+  color: white;
+  cursor: pointer;
+}

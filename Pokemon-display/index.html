@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <p>hello world</p>
+    <section class="search-bar">
+      <div class="search-dropdown">
+        <label for="pokedex-select"></label>
+        <select name="pokedex" id="pokedex-select">
+          <option value="">Select Pokedex</option>
+          <!-- Populate with javascript for the actual dropdown -->
+          <option value="all">All</option>
+        </select>
+      </div>
+      <div class="search-area">
+        <input type="text" placeholder="Search Pokemon" id="search-input" />
+        <button type="submit" onclick="searchPokemon()">
+          <i class="bx bx-search-alt-2"></i>
+        </button>
+      </div>
+    </section>
+    <section class="display">
+      <div class="search-result">
+        <div class="search-result-container">
+          <p>Pikachu</p>
+          <img
+            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/1.png"
+            alt=""
+          />
+          <div class="search-result-info">
+            <p>Base Stats</p>
+            <div class="base-stats"></div>
+            <p>Type</p>
+          </div>
+        </div>
+      </div>
+      <div class="search-result-evolution-chart"></div>
+    </section>
+    <script src="main.js"></script>
+  </body>
+</html>
