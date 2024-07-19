@@ -18,7 +18,8 @@ body {
   align-items: center;
   justify-content: center;
   width: 40%;
-  margin: 0 auto;
+  min-width: 400px;
+  margin: 5rem auto 2rem auto;
 }
 
 .search-dropdown {
@@ -34,6 +35,10 @@ body {
   padding: 0.5rem;
   border: none;
   border-radius: 20px 0px 0px 20px;
+}
+
+#pokedex-select:focus {
+  outline: none;
 }
 
 .search-dropdown option {
@@ -74,4 +79,57 @@ body {
 .search-area button .bx-search-alt-2 {
   color: white;
   cursor: pointer;
+}
+
+#display {
+  text-align: center;
+}
+
+#display.inactive {
+  display: none;
+}
+
+#no-result {
+  text-align: center;
+  color: black;
+  display: block;
+}
+
+#no-result.inactive {
+  display: none;
+}
+
+.search-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  min-width: 200px;
+  margin: 2rem auto;
+  background: dodgerblue;
+  border-radius: 20px;
+}
+
+.search-result-container {
+  padding: 2rem;
+  width: 70%;
+}
+
+.search-result-container h2 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.search-result-container img {
+  width: 100%;
+}
+
+.search-result-info > p {
+  font-size: 1rem;
+  text-decoration: underline;
+}
+
+#type > p,
+#base-stats > p {
+  font-size: 0.7rem;
 }

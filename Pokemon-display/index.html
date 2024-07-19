@@ -11,39 +11,41 @@
     />
   </head>
   <body>
-    <p>hello world</p>
     <section class="search-bar">
       <div class="search-dropdown">
         <label for="pokedex-select"></label>
         <select name="pokedex" id="pokedex-select">
-          <option value="">Select Pokedex</option>
+          <option id="select-input">Select Pokedex</option>
           <!-- Populate with javascript for the actual dropdown -->
           <option value="all">All</option>
         </select>
       </div>
       <div class="search-area">
-        <input type="text" placeholder="Search Pokemon" id="search-input" />
+        <input type="text" id="search-input" placeholder="Search Pokemon" />
         <button type="submit" onclick="searchPokemon()">
           <i class="bx bx-search-alt-2"></i>
         </button>
       </div>
     </section>
-    <section class="display">
+
+    <div id="no-result" class="inactive">
+      <h2>No results found</h2>
+    </div>
+
+    <section id="display" class="inactive">
+      <h2>Search Results</h2>
       <div class="search-result">
         <div class="search-result-container">
-          <p>Pikachu</p>
-          <img
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-ii/crystal/1.png"
-            alt=""
-          />
+          <h2 id="search-result-name"></h2>
+          <img src="" alt="" id="search-result-image" />
           <div class="search-result-info">
             <p>Base Stats</p>
-            <div class="base-stats"></div>
+            <div id="base-stats"></div>
             <p>Type</p>
+            <div id="type"></div>
           </div>
         </div>
       </div>
-      <div class="search-result-evolution-chart"></div>
     </section>
     <script src="main.js"></script>
   </body>
