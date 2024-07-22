@@ -81,14 +81,14 @@ body {
   flex-direction: column;
 }
 
-.to-do-container .task-list > p {
+.to-do-container > p {
   margin-bottom: 2rem;
   color: grey;
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
-.to-do-container .task-list > p > span {
+.to-do-container > p > span {
   color: black;
   cursor: pointer;
 }
@@ -104,41 +104,129 @@ body {
 .to-do-container .add-task span {
   margin-right: 1rem;
   font-size: 1rem;
+  font-weight: bold;
+  color: dodgerblue;
 }
 
 .to-do-container .add-task p {
   font-size: 1rem;
 }
 
+.to-do-container .completed-task,
 .to-do-container .task {
   position: relative;
   list-style-type: none;
-  margin-left: 2rem;
 }
 
-.to-do-container .task::before {
+.to-do-container .task i {
+  font-size: 1.5rem;
+  padding-right: 0.5rem;
+}
+
+.to-do-container .tasks .task {
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+.to-do-container .tasks .task .bx-check {
+  color: dodgerblue;
 }
 
 .to-do-container .completed-tasks {
   max-height: 300px;
   display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.to-do-container .completed p {
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.to-do-container .completed p i {
+  font-size: 1.5rem;
+}
+
+.to-do-container .completed-task {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.to-do-container .completed-task span {
+  text-decoration: line-through;
+}
+
+.to-do-container .completed-task i {
+  color: dodgerblue;
+  font-size: 1.5rem;
+  padding-right: 0.5rem;
+  text-decoration: none;
 }
 
 #add-container {
   display: flex;
   align-items: center;
   justify-content: start;
+  text-align: center;
   margin: 2rem;
+  height: 2rem;
+  padding-left: 1rem;
   width: 350px;
-  padding: 1rem;
   background-color: white;
   box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
 }
 
-#add-container span {
-  font-size: 2rem;
+#add-container #add-button span {
+  font-size: 1rem;
+  margin-right: 1rem;
+  color: dodgerblue;
 }
 
-#add-container p {
-  font-size: 2rem;
+#add-button {
+  font-size: 1rem;
+}
+
+.input-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin: 2rem;
+  height: 2rem;
+  width: 350px;
+  background-color: white;
+  box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+
+.input-title.hidden {
+  display: none;
+}
+
+.input-title-text {
+  width: 100%;
+  margin-left: 1rem;
+  border: none;
+}
+
+.input-title-text::placeholder {
+  font-size: 1rem;
+}
+
+.input-title-text:focus {
+  outline: none;
+}
+
+.input-title-text + span {
+  color: dodgerblue;
+  margin: 0 0.5rem;
+}
+
+#empty-to-do {
+  display: none;
 }
