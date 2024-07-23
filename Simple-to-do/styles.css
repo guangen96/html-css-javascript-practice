@@ -61,9 +61,7 @@ body {
 
 #content {
   background: rgba(0, 0, 0, 0.1);
-  width: 100%;
   overflow-x: auto;
-  overflow-y: hidden;
   height: calc(100vh - 4rem);
   display: flex;
 }
@@ -81,16 +79,31 @@ body {
   flex-direction: column;
 }
 
-.to-do-container > p {
+.to-do-container-header {
   margin-bottom: 2rem;
-  color: grey;
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
-.to-do-container > p > span {
+.to-do-container-header > span {
   color: black;
   cursor: pointer;
+}
+
+.to-do-container-header input {
+  border: none;
+  font-size: 1rem;
+  color: black;
+  font-weight: 600;
+}
+
+.to-do-container-header input::placeholder {
+  color: grey;
+  font-weight: 300;
+}
+
+.to-do-container-header input:focus {
+  outline: none;
 }
 
 .to-do-container .add-task {
@@ -123,23 +136,44 @@ body {
   padding-right: 0.5rem;
 }
 
+.to-do-container .tasks {
+  overflow: auto;
+  max-height: 600px;
+}
+
 .to-do-container .tasks .task {
   font-size: 1rem;
   margin: 1rem 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-.to-do-container .tasks .task .bx-check {
-  color: dodgerblue;
+.to-do-container .tasks .task input {
+  border: none;
+  font-size: 1rem;
 }
 
-.to-do-container .completed-tasks {
-  max-height: 300px;
+.to-do-container .tasks .task input:focus {
+  outline: none;
+}
+
+.to-do-container .completed {
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
 }
 
-.to-do-container .completed p {
+.to-do-container .completed .completed-tasks {
+  max-height: 200px;
+  overflow: auto;
+}
+
+.to-do-container .completed .completed-header {
+  cursor: pointer;
+}
+
+.to-do-container .completed .completed-header p {
   font-size: 1rem;
   display: flex;
   justify-content: space-between;
@@ -147,13 +181,13 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.to-do-container .completed p i {
+.to-do-container .completed .completed-header p i {
   font-size: 1.5rem;
 }
 
 .to-do-container .completed-task {
   font-size: 1rem;
-  margin: 0.5rem 0;
+  margin: 0.5rem;
   display: flex;
   align-items: center;
 }
@@ -167,6 +201,10 @@ body {
   font-size: 1.5rem;
   padding-right: 0.5rem;
   text-decoration: none;
+}
+
+.completed-tasks.hidden {
+  display: none;
 }
 
 #add-container {
