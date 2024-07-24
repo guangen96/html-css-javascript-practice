@@ -22,11 +22,6 @@ const deleteContainerButton = document.querySelectorAll(
 readFromLocalStorage();
 setInterval(saveToLocalStorage, 2000);
 
-// Array.from(addTaskButton).forEach(addTaskButtonListener);
-// Array.from(task).forEach(addTaskListener);
-// Array.from(tasksCompletedHeader).forEach(addTaskCompletedHeaderListener);
-// Array.from(deleteContainerButton).forEach(addDeleteContainerButtonListener);
-
 // Search filter (for now only implemented for incomplete task)
 searchFilter.addEventListener("change", () => {
   const filterValue = document
@@ -60,21 +55,17 @@ addListButton.addEventListener("click", () => {
   content.insertBefore(newInputTitle, addListContainer);
 
   // focus user to input list title
-  const inputTitleText = document.querySelectorAll(
-    ".input-title:not(.hidden) > .input-title-text"
-  );
-  inputTitleText[0].focus();
+  const newinputTitleText = newInputTitle.children[0];
+  newinputTitleText.focus();
 
   // Add event listener to read user input for list title (by click)
-  window.addEventListener("click", function submitTitle(event) {
+  window.addEventListener("click", submitTitle);
+
+  function submitTitle() {
     // skip for add-button (first click when user click add new list)
     if (event.target.id == "add-button") return;
-    console.log(newInputTitle);
-    console.log(inputTitleText[0]);
-
     // if user click outside, abort create new container and show back add list container
     if (
-      event.type == "click" &&
       event.target != newInputTitle &&
       !newInputTitle.contains(event.target)
     ) {
@@ -84,29 +75,30 @@ addListButton.addEventListener("click", () => {
       addListContainer.style.display = "flex";
       window.removeEventListener("click", submitTitle);
       return;
-    }
+    } else if (event.target == newinputTitleText) return;
 
     // else create new container
-    console.log([inputTitleText[0].value]);
-    const newContainer = createNewContainer([inputTitleText[0].value]);
+    const newContainer = createNewContainer([newinputTitleText.value]);
     content.insertBefore(newContainer, addListContainer);
     // remove input-title container
     newInputTitle.remove();
     // redisplay add list container
     addListContainer.style.display = "flex";
-  });
+    window.removeEventListener("click", submitTitle);
+  }
 
   // Add event listener to read user input for list title (by keypress enter)
   newInputTitle.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       // Cancel the default action, if needed
       event.preventDefault();
-      const newContainer = createNewContainer([inputTitleText[0].value]);
+      const newContainer = createNewContainer([newinputTitleText.value]);
       content.insertBefore(newContainer, addListContainer);
       // remove input-title container
       newInputTitle.remove();
       // redisplay add list container
       addListContainer.style.display = "flex";
+      window.removeEventListener("click", submitTitle);
     }
   });
 });
@@ -120,8 +112,6 @@ function createNewContainer(
   completedTaskCount,
   completedTask
 ) {
-  console.log(title);
-
   // create new container (even if header is empty)
   const newContainer = toDoTemplate.cloneNode(true);
   newContainer.removeAttribute("id");
@@ -143,12 +133,9 @@ function createNewContainer(
     newContainer.children[1].children[2].children[0];
   const newContainerDeleteContainerButton =
     newContainer.children[0].children[1];
-  console.log(index);
   addTaskButtonListener(newContainerTaskButton);
   addTaskCompletedHeaderListener(newContainerCompletedHeader);
   addDeleteContainerButtonListener(newContainerDeleteContainerButton);
-
-  console.log(taskCount);
 
   // the steps below this if statement is for creating new container when loading from localstorage
   if (taskCount == undefined) return newContainer;
