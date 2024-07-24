@@ -16,4 +16,6 @@ API documentation: https://pokeapi.co/docs/v2#info <br />
 Website: https://pokemon-display-practice.netlify.app/ <br />
 Quick instructions: Select pokedex (use "all" if unfamiliar) then input search term to find and display pokemon information <br />
 
+Simple-to-do-app (simple to-do-app that can categorize by boards and stored using localstorage) <br />
+Website: https://simple-to-do-with-localstorage.netlify.app/ <br />
 
