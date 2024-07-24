@@ -15,19 +15,19 @@ const inputTitleTemplate =
   document.getElementsByClassName("input-title hidden");
 
 const searchFilter = document.getElementById("search-filter");
+const deleteContainerButton = document.querySelectorAll(
+  ".to-do-container-header > span"
+);
 
 readFromLocalStorage();
 setInterval(saveToLocalStorage, 2000);
 
-Array.from(addTaskButton).forEach(addTaskButtonListener);
-Array.from(task).forEach(addTaskListener);
-Array.from(tasksCompletedHeader).forEach(addTaskCompletedHeaderListener);
+// Array.from(addTaskButton).forEach(addTaskButtonListener);
+// Array.from(task).forEach(addTaskListener);
+// Array.from(tasksCompletedHeader).forEach(addTaskCompletedHeaderListener);
+// Array.from(deleteContainerButton).forEach(addDeleteContainerButtonListener);
 
-const deleteContainerButton = document.querySelectorAll(
-  ".to-do-container-header > span"
-);
-Array.from(deleteContainerButton).forEach(addDeleteContainerButtonListener);
-
+// Search filter (for now only implemented for incomplete task)
 searchFilter.addEventListener("change", () => {
   const filterValue = document
     .getElementById("search-input")
@@ -40,7 +40,7 @@ searchFilter.addEventListener("change", () => {
     toDoContainerTaskArray.push(element.value.toUpperCase());
   });
 
-  // loop through and show / hide
+  // loop through and show if task text matches the filtervalue
   for (i = 0; i < toDoContainerTask.length; i++) {
     txtValue = toDoContainerTaskArray[i];
     if (txtValue.toUpperCase().indexOf(filterValue) > -1) {
@@ -51,6 +51,7 @@ searchFilter.addEventListener("change", () => {
   }
 });
 
+// Add new list
 addListButton.addEventListener("click", () => {
   // Display input element for user to input title
   addListContainer.style.display = "none";
@@ -58,27 +59,164 @@ addListButton.addEventListener("click", () => {
   newInputTitle.classList.remove("hidden");
   content.insertBefore(newInputTitle, addListContainer);
 
-  // focus user to input
+  // focus user to input list title
   const inputTitleText = document.querySelectorAll(
     ".input-title:not(.hidden) > .input-title-text"
   );
   inputTitleText[0].focus();
 
-  // Add event listener for next step
-  window.addEventListener("click", createNewContainer);
+  // Add event listener to read user input for list title (by click)
+  window.addEventListener("click", function submitTitle(event) {
+    // skip for add-button (first click when user click add new list)
+    if (event.target.id == "add-button") return;
+    console.log(newInputTitle);
+    console.log(inputTitleText[0]);
 
-  const inputTitle = document.querySelectorAll(".input-title:not(.hidden)");
-  inputTitle[0].addEventListener("keypress", (event) => {
-    // If the user presses the "Enter" key on the keyboard
+    // if user click outside, abort create new container and show back add list container
+    if (
+      event.type == "click" &&
+      event.target != newInputTitle &&
+      !newInputTitle.contains(event.target)
+    ) {
+      // remove title input container
+      newInputTitle.remove();
+      // redisplay addlistcontainer
+      addListContainer.style.display = "flex";
+      window.removeEventListener("click", submitTitle);
+      return;
+    }
+
+    // else create new container
+    console.log([inputTitleText[0].value]);
+    const newContainer = createNewContainer([inputTitleText[0].value]);
+    content.insertBefore(newContainer, addListContainer);
+    // remove input-title container
+    newInputTitle.remove();
+    // redisplay add list container
+    addListContainer.style.display = "flex";
+  });
+
+  // Add event listener to read user input for list title (by keypress enter)
+  newInputTitle.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       // Cancel the default action, if needed
       event.preventDefault();
-      // Trigger the button element with a click
-      createNewContainer(event);
+      const newContainer = createNewContainer([inputTitleText[0].value]);
+      content.insertBefore(newContainer, addListContainer);
+      // remove input-title container
+      newInputTitle.remove();
+      // redisplay add list container
+      addListContainer.style.display = "flex";
     }
   });
 });
 
+// create newcontainer from add list and from reading data from local storage
+function createNewContainer(
+  title,
+  index,
+  taskCount,
+  task,
+  completedTaskCount,
+  completedTask
+) {
+  console.log(title);
+
+  // create new container (even if header is empty)
+  const newContainer = toDoTemplate.cloneNode(true);
+  newContainer.removeAttribute("id");
+
+  const newContainerHeader = document.createElement("div");
+  const newContainerInput = document.createElement("input");
+  const newContainerHeaderClose = document.createElement("span");
+  newContainerHeader.className = "to-do-container-header";
+  newContainerInput.placeholder = "input header";
+  newContainerInput.value = title; // could be empty (didn't do validation)
+  newContainerHeaderClose.innerHTML = "X";
+  newContainerHeader.appendChild(newContainerInput);
+  newContainerHeader.appendChild(newContainerHeaderClose);
+  newContainer.prepend(newContainerHeader);
+
+  // add event listeners
+  const newContainerTaskButton = newContainer.children[1].children[0];
+  const newContainerCompletedHeader =
+    newContainer.children[1].children[2].children[0];
+  const newContainerDeleteContainerButton =
+    newContainer.children[0].children[1];
+  console.log(index);
+  addTaskButtonListener(newContainerTaskButton);
+  addTaskCompletedHeaderListener(newContainerCompletedHeader);
+  addDeleteContainerButtonListener(newContainerDeleteContainerButton);
+
+  console.log(taskCount);
+
+  // the steps below this if statement is for creating new container when loading from localstorage
+  if (taskCount == undefined) return newContainer;
+
+  // populate tasks
+  let taskLowerIndex = 0;
+  let taskUpperIndex = 0;
+  for (let i = 0; i < index; i++) {
+    taskLowerIndex += taskCount[i];
+  }
+  if (index == 0) {
+    taskUpperIndex = taskCount[0];
+  } else {
+    taskUpperIndex = taskLowerIndex + taskCount[index];
+  }
+
+  for (let i = taskLowerIndex; i < taskUpperIndex; i++) {
+    const newTask = document.createElement("li");
+    newTask.className = "task";
+    const radioIcon = document.createElement("i");
+    radioIcon.classList.add("bx", "bx-radio-circle");
+    newTask.prepend(radioIcon);
+    newContainerTaskButton.nextElementSibling.appendChild(newTask);
+
+    // add input value
+    const newInput = document.createElement("input");
+    newInput.type = "text";
+    newInput.value = task[i];
+    newTask.appendChild(newInput);
+
+    // add eventlistener
+    addTaskListener(newTask);
+  }
+
+  // populate completed tasks
+  let taskCompletedLowerIndex = 0;
+  let taskCompletedUpperIndex = 0;
+  for (let i = 0; i < index; i++) {
+    taskCompletedLowerIndex += completedTaskCount[i];
+  }
+  if (index == 0) {
+    taskCompletedUpperIndex = completedTaskCount[0];
+  } else {
+    taskCompletedUpperIndex =
+      taskCompletedLowerIndex + completedTaskCount[index];
+  }
+
+  for (let i = taskCompletedLowerIndex; i < taskCompletedUpperIndex; i++) {
+    // locate completed task area
+    const newCompletedTasks = newContainer.children[1].children[2].children[1];
+
+    // create / load completed task from local storage
+    const newCompletedTask = document.createElement("li");
+    const newCompletedTaskIcon = document.createElement("i");
+    newCompletedTaskIcon.classList.add("bx");
+    newCompletedTaskIcon.classList.add("bx-check");
+    newCompletedTask.className = "completed-task";
+    newCompletedTask.prepend(newCompletedTaskIcon);
+    const convertedSpan = document.createElement("span");
+    convertedSpan.innerHTML = completedTask[i];
+    newCompletedTask.appendChild(convertedSpan);
+    newCompletedTasks.appendChild(newCompletedTask);
+  }
+
+  return newContainer;
+}
+
+// -------- Section BELOW is for all the listeners relating to each to-do container
 function addDeleteContainerButtonListener(deleteContainerButton, index, array) {
   deleteContainerButton.addEventListener("click", () => {
     const container = deleteContainerButton.parentNode.parentNode;
@@ -175,69 +313,11 @@ function addTaskListener(task, index, array) {
     }
   });
 }
+// -------- Section ABOVE is for all the listeners relating to each to-do container
 
+// Utilities and save/read local storage
 function insertAfter(referenceNode, newNode) {
   referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
-
-function createNewContainer(event) {
-  const inputTitle = document.querySelectorAll(".input-title:not(.hidden)");
-  // Read title value input by user
-  const inputTitleText = document.querySelectorAll(
-    ".input-title:not(.hidden) > .input-title-text"
-  )[0].value;
-
-  // skip for add-button
-  if (event.target.id == "add-button") return;
-
-  // if user click outside, abort create new container
-  if (
-    event.type == "click" &&
-    event.target != inputTitle[0] &&
-    !inputTitle[0].contains(event.target)
-  ) {
-    // remove title input container
-    inputTitle[0].remove();
-    // redisplay addlistcontainer
-    addListContainer.style.display = "flex";
-    window.removeEventListener("click", createNewContainer);
-    return;
-  }
-
-  // create new container
-  const newContainer = toDoTemplate.cloneNode(true);
-  newContainer.removeAttribute("id");
-
-  const newContainerHeader = document.createElement("div");
-  const newContainerInput = document.createElement("input");
-  const newContainerHeaderClose = document.createElement("span");
-  newContainerHeader.className = "to-do-container-header";
-  newContainerInput.placeholder = "input header";
-  newContainerInput.value = inputTitleText;
-  newContainerHeaderClose.innerHTML = "X";
-  newContainerHeader.appendChild(newContainerInput);
-  newContainerHeader.appendChild(newContainerHeaderClose);
-
-  newContainer.prepend(newContainerHeader);
-  content.insertBefore(newContainer, addListContainer);
-
-  // remove input-title container
-  inputTitle[0].remove();
-
-  // add event listeners
-  const newContainerTaskButton = newContainer.children[1].children[0];
-  const newContainerCompletedHeader =
-    newContainer.children[1].children[2].children[0];
-  const newContainerDeleteContainerButton =
-    newContainer.children[0].children[1];
-  addTaskButtonListener(newContainerTaskButton);
-  addTaskCompletedHeaderListener(newContainerCompletedHeader);
-  addDeleteContainerButtonListener(newContainerDeleteContainerButton);
-
-  // redisplay add list container
-  addListContainer.style.display = "flex";
-
-  window.removeEventListener("click", createNewContainer);
 }
 
 function saveToLocalStorage() {
@@ -310,83 +390,16 @@ function readFromLocalStorage() {
     localStorage.getItem("completedTaskCount")
   );
   const completedTask = JSON.parse(localStorage.getItem("completedTask"));
-  // create container and populate header
+  // create new container for each header
   header.forEach((element, index) => {
-    // create new container
-    const newContainer = toDoTemplate.cloneNode(true);
-    newContainer.removeAttribute("id");
-
-    const newContainerHeader = document.createElement("div");
-    const newContainerInput = document.createElement("input");
-    const newContainerHeaderClose = document.createElement("span");
-    newContainerHeader.className = "to-do-container-header";
-    newContainerInput.placeholder = "input header";
-    newContainerInput.value = element; // display element here
-    newContainerHeaderClose.innerHTML = "X";
-    newContainerHeader.appendChild(newContainerInput);
-    newContainerHeader.appendChild(newContainerHeaderClose);
-
-    newContainer.prepend(newContainerHeader);
+    const newContainer = createNewContainer(
+      element,
+      index,
+      taskCount,
+      task,
+      completedTaskCount,
+      completedTask
+    );
     content.insertBefore(newContainer, addListContainer);
-
-    const newContainerTaskButton = newContainer.children[1].children[0];
-
-    // populate tasks
-    let taskLowerIndex = 0;
-    let taskUpperIndex = 0;
-    for (let i = 0; i < index; i++) {
-      taskLowerIndex += taskCount[i];
-    }
-    if (index == 0) {
-      taskUpperIndex = taskCount[0];
-    } else {
-      taskUpperIndex = taskLowerIndex + taskCount[index];
-    }
-
-    for (let i = taskLowerIndex; i < taskUpperIndex; i++) {
-      const newTask = document.createElement("li");
-      newTask.className = "task";
-      const radioIcon = document.createElement("i");
-      radioIcon.classList.add("bx", "bx-radio-circle");
-      newTask.prepend(radioIcon);
-      newContainerTaskButton.nextElementSibling.appendChild(newTask);
-
-      // add input value
-      const newInput = document.createElement("input");
-      newInput.type = "text";
-      newInput.value = task[i];
-      newTask.appendChild(newInput);
-    }
-
-    // populate completed tasks
-    let taskCompletedLowerIndex = 0;
-    let taskCompletedUpperIndex = 0;
-    for (let i = 0; i < index; i++) {
-      taskCompletedLowerIndex += completedTaskCount[i];
-    }
-    if (index == 0) {
-      taskCompletedUpperIndex = completedTaskCount[0];
-    } else {
-      taskCompletedUpperIndex =
-        taskCompletedLowerIndex + completedTaskCount[index];
-    }
-
-    for (let i = taskCompletedLowerIndex; i < taskCompletedUpperIndex; i++) {
-      // locate completed task area
-      const newCompletedTasks =
-        newContainer.children[1].children[2].children[1];
-
-      // create / load completed task from local storage
-      const newCompletedTask = document.createElement("li");
-      const newCompletedTaskIcon = document.createElement("i");
-      newCompletedTaskIcon.classList.add("bx");
-      newCompletedTaskIcon.classList.add("bx-check");
-      newCompletedTask.className = "completed-task";
-      newCompletedTask.prepend(newCompletedTaskIcon);
-      const convertedSpan = document.createElement("span");
-      convertedSpan.innerHTML = completedTask[i];
-      newCompletedTask.appendChild(convertedSpan);
-      newCompletedTasks.appendChild(newCompletedTask);
-    }
   });
 }
